@@ -1,0 +1,182 @@
+<!-- load static created-->
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        
+        <!-- css bootstrap 5 https://getbootstrap.com/docs/5.3/getting-started/introduction/#separate-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        
+        <!-- import file css created-->
+        <link href-"{%static 'app/css/style.css' %}" rel="stylesheet" />
+        <link href-"{%static 'app/css/owl.carousel.min.css' %}" rel="stylesheet" />
+        <link href-"{%static 'app/css/all.min.css' %}" rel="stylesheet" />
+
+        <link rel="stylesheet" type="text/css" href="{% static 'app/css/main.css' %}">
+        
+        <!-- js : jquery cdn link-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+        
+        <!-- import file js created-->
+        <script src="{%static 'app/js/owl.carousel.min.js' %}">  </script>
+        <script src="{%static 'app/js/all.min.js' %}">  </script>
+        <script src="{%static 'app/js/myscript.js' %}">  </script>
+
+        <script type="text/javascript">
+          var user = '{{request.user}}'
+          function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getCookie('csrftoken');
+        </script>
+
+        <title>Web ban hang online</title>
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <!-- MENU header-->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <!-- image for brand-->
+              <a class="navbar-brand" href="{% url 'home' %}">
+                <img src= "{% static "app/images/Neel.png" %}" width="50" height="50" />
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Trang Chủ</a>
+                  </li>
+
+
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Sản Phẩm
+                    </a>
+                    <ul class="dropdown-menu">
+                      {% for item in categories %}
+                      <li><a class="dropdown-item" href="{% url 'category' %}?category={{item.slug}}">{{item.name}}</a></li>
+                      {% endfor %}
+                      
+
+
+                      {% comment %} <li><a class="dropdown-item" href="#">Another action</a></li> {% endcomment %}
+                      
+                      {% comment %} <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li> {% endcomment %}
+                    </ul>
+                  </li>
+
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cart' %}">Cart</a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Liên Hệ</a>
+                  </li>
+
+                  {% comment %} <li class="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                  </li> {% endcomment %}
+                </ul>
+                <form class="d-flex" role="search" method = POST action = '{% url 'search'%}'>
+                  {% csrf_token %}
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name = "searched">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+              </div>
+
+              {% comment %} <ul class="navbar-nav me-auto mb-2 mb-lg-0"> {% endcomment %}
+                {% comment %} <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    User1
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Trang Cá Nhân</a></li>
+                    <li><a class="dropdown-item" href="#">Đơn Hàng</a></li>
+                    <li><a class="dropdown-item" href="#">Thoát</a></li>
+                  </ul>
+                </li> {% endcomment %}
+
+                <div class = 'form-inline my-2 my-lg-0' style = "visibility: {{user_login}}">
+                  <span> hello {{request.user}} </span>
+                  <span> <a href = '{% url 'logout' %}'> Logout </a></span>
+                  
+                </div>
+
+                {% comment %} <li class="nav-item">
+                  <a class="nav-link" href="{% url 'cart' %}"> Giỏ Hàng </a>
+                </li>    {% endcomment %}
+
+
+                <div class = 'form-inline my-2 my-lg-0' style = "visibility: {{user_not_login}}">
+
+                  <a class="nav-link" href="{% url 'login' %}">Đăng Nhập</a>
+
+                  <a class="nav-link" href="{% url 'register' %}">Đăng Ký</a>
+                </div>
+              {% comment %} </ul> {% endcomment %}
+
+              <div class = 'form-inline my-2 my-lg-0'>
+                <a href="{% url 'cart' %}"> <img id='cart-icon' src="{% static 'images/cart.png' %}"> </a>
+                
+              </div>
+
+              <div> 
+                <p id='cart-total'>{{cartItems}}</p> 
+              </div>
+
+            </div>
+          </nav>
+
+          
+          <!-- MAIN BODY-->
+          <!--Slider Bootstrap-->
+          {% block banner-slider %} {% endblock banner-slider %}
+
+          {% block main-content %} {% endblock main-content %}
+
+          {% block cart-content %} {% endblock cart-content %}
+
+          {% block checkout-content %} {% endblock checkout-content %}
+
+          {% block  register %} {% endblock register %}
+
+          {% block search %} {% endblock search %}
+
+
+          <!-- FOOTER-->
+           <footer class="contanier-- fluid bg-success text-center fixed-bottom p-2 mt-5">
+                copyright
+
+           </footer>
+
+           <script src="{%static 'app/js/cart.js' %}">  </script>
+          <!-- to GUI shown complete -> can use this function-->
+    </body>
+    
+</html>

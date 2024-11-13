@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+
+{% extends "app/base.html" %}
+{% load static %}
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        {% block search %}
+        <h5> Result search for {{searched}}</h5>
+        {% comment %} {% for key in keys %}
+        {{key}} <br/>
+        {% endfor %} {% endcomment %}
+
+        <div class = "row" style="width:100%">
+            {% for product in keys %}
+              <div class = "col-lg-3">
+              <img class="thumbnail" src="{{product.ImageURL}}">
+              <div class="box-element product">
+                  <h6><strong> {{product.name}}</strong></h6>
+                  <hr>
+          
+                  <button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to cart </button>
+                  <a class= "btn btn-outline-success" href="#">View</a>
+                  <h4 style="display: inline-block; float: right"><strong>${{product.price | floatformat:2}}</strong></h4>
+              </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endblock search %}
+    </body>
+</html>

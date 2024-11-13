@@ -1,0 +1,159 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block banner-slider %} 
+<div id="carouselExampleIndicators" class="carousel slide">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 4"></button>
+
+    </div>
+    <div class="carousel-inner">
+
+      <div class="carousel-item active" data-bs-interval="10000">
+        <img src="{% static 'app/images/banner/b1.jpg' %}" class="d-block w-100" alt="Sữa" height="480">
+        <div class="carousel-caption d-none d-md-block bg-success text-white">
+            <h5> Sữa </h5>
+            <p> Uống sữa.</p>
+        </div>
+      </div>
+
+      <div class="carousel-item" data-bs-interval="2000">
+        <img src="{% static 'app/images/banner/b2.jpg' %}" class="d-block w-100" alt="Sữa" height="480">
+        <div class="carousel-caption d-none d-md-block bg-success text-white">
+            <h5> Sữa </h5>
+            <p> Uống sữa.</p>
+        </div>
+      </div>
+
+      <div class="carousel-item" data-bs-interval="2000">
+        <img src="{% static 'app/images/banner/b3.jpg' %}" class="d-block w-100" alt="Sữa" height="480">
+        <div class="carousel-caption d-none d-md-block bg-success text-white">
+            <h5> Sữa </h5>
+            <p> Uống sữa.</p>
+        </div>
+      </div>
+
+      <div class="carousel-item" data-bs-interval="2000">
+        <img src="{% static 'app/images/banner/b4.jpg' %}" class="d-block w-100" alt="Sữa" height="480">
+        <div class="carousel-caption d-none d-md-block bg-success text-white">
+            <h5> Sữa </h5>
+            <p> Uống sữa.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+{% endblock banner-slider %}
+
+{% block main-content %}
+{% comment %} <div class = "row">
+
+
+    <div class = "col-lg-4">
+        <img class="thumbnail" src="{% static 'app/images/cow-ghee.png' %}">
+        <div class="box-element product">
+            <h6><strong>Sản Phẩm</strong></h6>
+            <hr>
+
+            <button class="btn btn-outline-secondary add-btn">Thêm vào giỏ hàng </button>
+            <a class= "btn btn-outline-success" href="#">Xem</a>
+            <h4 style="display: inline-block; float: right"><strong>200.000 VND</strong></h4>
+        </div>
+    </div>
+
+    <div class = "col-lg-4">
+        <img class="thumbnail" src="{% static 'app/images/cow-milk.png' %}">
+        <div class="box-element product">
+            <h6><strong>Sản Phẩm</strong></h6>
+            <hr>
+
+            <button class="btn btn-outline-secondary add-btn">Thêm vào giỏ hàng </button>
+            <a class= "btn btn-outline-success" href="#">Xem</a>
+            <h4 style="display: inline-block; float: right"><strong>200.000 VND</strong></h4>
+        </div>
+    </div>
+
+    <div class = "col-lg-4">
+        <img class="thumbnail" src="{% static 'app/images/curd-premium.png' %}">
+        <div class="box-element product">
+            <h6><strong>Sản Phẩm</strong></h6>
+            <hr>
+
+            <button class="btn btn-outline-secondary add-btn">Thêm vào giỏ hàng </button>
+            <a class= "btn btn-outline-success" href="#">Xem</a>
+            <h4 style="display: inline-block; float: right"><strong>200.000 VND</strong></h4>
+        </div>
+    </div>
+
+</div> {% endcomment %}
+
+<div class = "row" style="width:100%">
+  {% for product in products %}
+    <div class = "col-lg-3">
+    <img class="thumbnail" src="{{product.ImageURL}}">
+    <div class="box-element product">
+        <h6><strong> {{product.name}}</strong></h6>
+        <hr>
+
+        <button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to cart </button>
+        <a class= "btn btn-outline-success" href="{% url 'detail' %}?id={{product.id}}">View</a>
+        <h4 style="display: inline-block; float: right"><strong>${{product.price | floatformat:2}}</strong></h4>
+    </div>
+    </div>
+    
+  
+
+  {% endfor %}
+
+  {% comment %} <div class = "col-lg-4">
+      <img class="thumbnail" src="{% static 'app/images/cow-ghee.png' %}">
+      <div class="box-element product">
+          <h6><strong>Sản Phẩm</strong></h6>
+          <hr>
+
+          <button class="btn btn-outline-secondary add-btn">Thêm vào giỏ hàng </button>
+          <a class= "btn btn-outline-success" href="#">Xem</a>
+          <h4 style="display: inline-block; float: right"><strong>200.000 VND</strong></h4>
+      </div>
+  </div>
+
+  <div class = "col-lg-4">
+      <img class="thumbnail" src="{% static 'app/images/cow-milk.png' %}">
+      <div class="box-element product">
+          <h6><strong>Sản Phẩm</strong></h6>
+          <hr>
+
+          <button class="btn btn-outline-secondary add-btn">Thêm vào giỏ hàng </button>
+          <a class= "btn btn-outline-success" href="#">Xem</a>
+          <h4 style="display: inline-block; float: right"><strong>200.000 VND</strong></h4>
+      </div>
+  </div>
+
+  <div class = "col-lg-4">
+      <img class="thumbnail" src="{% static 'app/images/curd-premium.png' %}">
+      <div class="box-element product">
+          <h6><strong>Sản Phẩm</strong></h6>
+          <hr>
+
+          <button class="btn btn-outline-secondary add-btn">Thêm vào giỏ hàng </button>
+          <a class= "btn btn-outline-success" href="#">Xem</a>
+          <h4 style="display: inline-block; float: right"><strong>200.000 VND</strong></h4>
+      </div>
+  </div> {% endcomment %}
+
+</div>
+<br /> <br /> <br />
+
+{% endblock main-content %}
